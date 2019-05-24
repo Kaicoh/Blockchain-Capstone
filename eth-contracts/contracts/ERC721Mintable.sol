@@ -43,6 +43,36 @@ contract Ownable {
 //  3) create an internal constructor that sets the _paused variable to false
 //  4) create 'whenNotPaused' & 'paused' modifier that throws in the appropriate situation
 //  5) create a Paused & Unpaused event that emits the address that triggered the event
+contract Pausable is Ownable {
+    bool private _paused;
+
+    event Paused(address indexed account);
+    event Unpaused(address indexed account);
+
+    modifier paused() {
+        require(_paused);
+        _;
+    }
+
+    modifier whenNotPaused() {
+        require(!_paused);
+        _;
+    }
+
+    constructor() internal {
+        _paused = false;
+    }
+
+    function pause() public onlyOwner whenNotPaused {
+        _paused = true;
+        emit Paused(msg.sender);
+    }
+
+    function unpause() public onlyOwner paused {
+        _paused = false;
+        emit Unpaused(msg.sender);
+    }
+}
 
 contract ERC165 {
     bytes4 private constant _INTERFACE_ID_ERC165 = 0x01ffc9a7;
