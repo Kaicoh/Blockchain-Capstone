@@ -5,12 +5,24 @@
   "main": "index.js",
   "scripts": {
     "dev": "lite-server",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "npm run eslint && npm run ethlint",
+    "eslint": "eslint eth-contracts/migrations/**/*.js eth-contracts/test/**/*.js eth-contracts/truffle.js",
+    "ethlint": "solium -d eth-contracts/contracts"
   },
   "keywords": [],
   "author": "pk <pkrasam@gmail.com> (https://ipfs.infura.io/ipfs/QmSXiR9Khm3yo1J67nUopvVBxFJ8YGN2fUGZ34Etr3m92x/)",
   "license": "MIT",
+  "engines": {
+    "node": "10.15.3",
+    "npm": "6.9.0"
+  },
   "devDependencies": {
+    "eslint": "^5.16.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.17.2",
+    "ethlint": "^1.2.4",
+    "husky": "^2.3.0",
     "lite-server": "2.4.0"
   },
   "dependencies": {
