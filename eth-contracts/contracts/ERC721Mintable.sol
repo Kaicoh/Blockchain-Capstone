@@ -537,7 +537,7 @@ contract ERC721Metadata is ERC721Enumerable, usingOraclize {
 //      -takes in a 'to' address, tokenId, and tokenURI as parameters
 //      -returns a true boolean upon completion of the function
 //      -calls the superclass mint and setTokenURI functions
-contract CapstoneToken is ERC721Metadata {
+contract ERC721Mintable is ERC721Metadata {
     constructor()
         ERC721Metadata(
             "Udacity BlackchainND Capstone token",
