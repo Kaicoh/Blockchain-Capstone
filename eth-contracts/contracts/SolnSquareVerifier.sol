@@ -1,8 +1,9 @@
 pragma solidity >=0.4.21 <0.6.0;
 
-// TODO define a contract call to the zokrates generated solidity contract <Verifier> or <renamedVerifier>
-contract SolnSquareVerifier {} // solium-disable-line no-empty-blocks
+import "../../zokrates/code/square/verifier.sol";
 
+// TODO define a contract call to the zokrates generated solidity contract <Verifier> or <renamedVerifier>
+contract SquareVerifier is Verifier {} // solium-disable-line no-empty-blocks
 
 // TODO define another contract named SolnSquareVerifier that inherits from your ERC721Mintable class
 
