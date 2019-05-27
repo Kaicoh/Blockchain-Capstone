@@ -23,7 +23,8 @@
     "eslint-plugin-import": "^2.17.2",
     "ethlint": "^1.2.4",
     "husky": "^2.3.0",
-    "lite-server": "2.4.0"
+    "lite-server": "2.4.0",
+    "truffle-assertions": "^0.9.0"
   },
   "dependencies": {
     "openzeppelin-solidity": "^2.2.0",
