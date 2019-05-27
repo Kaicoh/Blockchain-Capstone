@@ -3,4 +3,4 @@ eth-contracts/build/
 .DS_Store
 *.sublime-project
 *.sublime-workspace
-
+.env
