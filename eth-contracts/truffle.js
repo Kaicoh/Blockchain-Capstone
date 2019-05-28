@@ -1,7 +1,5 @@
-/* eslint-disable import/no-extraneous-dependencies */
 const HDWalletProvider = require('truffle-hdwallet-provider');
 require('dotenv').config();
-/* eslint-enable import/no-extraneous-dependencies */
 
 const { INFURA_KEY, MNEMONIC } = process.env;
 
