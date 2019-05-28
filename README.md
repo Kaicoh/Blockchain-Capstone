@@ -1,13 +1,22 @@
-# Udacity Blockchain Capstone
+# Real Estate Marketplace
 
-The capstone will build upon the knowledge you have gained in the course in order to build a decentralized housing product.
+Udacity Blockchain ND Capstone project.
 
-## Token Address
+## Contract Address
 
 rinkeby network
 
-0x448F767fD6d132c865cc4bd25c1921fBaaEEeC4d
+0xEe9366d70f544057B8f46f45475232E11705cc76
 
-## OpenSea Store
+## OpenSea MarketPlace Storefront
 
-https://rinkeby.opensea.io/category/udacityblackchainndcapstonetoken
+https://rinkeby.opensea.io/category/blockchainndcapstonetoken
+
+## How to test
+
+Change directory and run this command
+
+```
+$ cd eth-contracts
+$ truffle test
+```
