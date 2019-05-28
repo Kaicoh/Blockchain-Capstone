@@ -51,7 +51,7 @@ const mint = (account, contract, proof) => {
     return contract
         .methods
         .mint(a, b, c, inputs)
-        .send({ from: account })
+        .send({ from: account, gas: 6700000 })
         .then((receipt) => {
             // eslint-disable-next-line no-console
             console.log(`Minted token. Transaction: ${receipt.transactionHash}`);
