@@ -540,8 +540,8 @@ contract ERC721Metadata is ERC721Enumerable, usingOraclize {
 contract ERC721Mintable is ERC721Metadata {
     constructor()
         ERC721Metadata(
-            "Udacity BlackchainND Capstone token",
-            "UBC",
+            "Real Estate Token",
+            "RET",
             "https://s3-us-west-2.amazonaws.com/udacity-blockchain/capstone/"
         )
         public
