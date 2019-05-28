@@ -6,17 +6,42 @@ import "./ERC721Mintable.sol";
 // TODO define a contract call to the zokrates generated solidity contract <Verifier> or <renamedVerifier>
 contract SquareVerifier is Verifier {} // solium-disable-line no-empty-blocks
 
-// TODO define another contract named SolnSquareVerifier that inherits from your ERC721Mintable class
+contract OwnableDelegateProxy {} // solium-disable-line no-empty-blocks
+contract ProxyRegistry {
+    mapping(address => OwnableDelegateProxy) public proxies;
+}
+
 contract SolnSquareVerifier is ERC721Mintable {
 
     mapping (bytes32 => bool) private solutions;
 
     SquareVerifier squareVerifier;
+    ProxyRegistry proxyRegistry;
 
     event SolutionAdded(address indexed account);
 
-    constructor(address verifier) public {
+    constructor(address verifier, address registry) public {
         squareVerifier = SquareVerifier(verifier);
+        proxyRegistry = ProxyRegistry(registry);
+    }
+
+    /**
+     * Override isApprovedForAll to whitelist user's OpenSea proxy accounts to enable gas-less listings.
+     */
+    function isApprovedForAll(
+        address owner,
+        address operator
+    )
+        public
+        view
+        returns (bool)
+    {
+        // Whitelist OpenSea proxy contract for easy trading.
+        if (address(proxyRegistry.proxies(owner)) == operator) {
+            return true;
+        }
+
+        return super.isApprovedForAll(owner, operator);
     }
 
     function mint(
