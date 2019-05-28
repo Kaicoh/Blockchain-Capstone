@@ -1,48 +1,36 @@
-pragma solidity >=0.4.21 <0.6.0;
+pragma solidity ^0.5.0;
 
 import "../../zokrates/code/square/verifier.sol";
-import "./ERC721Mintable.sol";
+import "./TradeableERC721Token.sol";
 
-// TODO define a contract call to the zokrates generated solidity contract <Verifier> or <renamedVerifier>
 contract SquareVerifier is Verifier {} // solium-disable-line no-empty-blocks
 
-contract OwnableDelegateProxy {} // solium-disable-line no-empty-blocks
-contract ProxyRegistry {
-    mapping(address => OwnableDelegateProxy) public proxies;
-}
+contract SolnSquareVerifier is TradeableERC721Token {
 
-contract SolnSquareVerifier is ERC721Mintable {
+    /********************************************************************************************/
+    /*                                       DATA VARIABLES                                     */
+    /********************************************************************************************/
 
     mapping (bytes32 => bool) private solutions;
 
     SquareVerifier squareVerifier;
-    ProxyRegistry proxyRegistry;
 
     event SolutionAdded(address indexed account);
 
-    constructor(address verifier, address registry) public {
-        squareVerifier = SquareVerifier(verifier);
-        proxyRegistry = ProxyRegistry(registry);
-    }
+    /********************************************************************************************/
+    /*                                       CONSTRUCTOR                                        */
+    /********************************************************************************************/
 
-    /**
-     * Override isApprovedForAll to whitelist user's OpenSea proxy accounts to enable gas-less listings.
-     */
-    function isApprovedForAll(
-        address owner,
-        address operator
-    )
+    constructor(address _squareVerifierAddress, address _proxyRegistryAddress)
+        TradeableERC721Token("BlockchainND Capstone Token", "BCT", _proxyRegistryAddress)
         public
-        view
-        returns (bool)
     {
-        // Whitelist OpenSea proxy contract for easy trading.
-        if (address(proxyRegistry.proxies(owner)) == operator) {
-            return true;
-        }
-
-        return super.isApprovedForAll(owner, operator);
+        squareVerifier = SquareVerifier(_squareVerifierAddress);
     }
+
+    /********************************************************************************************/
+    /*                                     SMART CONTRACT FUNCTIONS                             */
+    /********************************************************************************************/
 
     function mint(
         uint256[2] calldata a,
@@ -58,11 +46,16 @@ contract SolnSquareVerifier is ERC721Mintable {
         require(!solutions[key], "Duplicate solution");
 
         _addSolution(key);
-
-        uint256 tokenId = totalSupply();
-        super._mint(msg.sender, tokenId);
-        super.setTokenURI(tokenId);
+        mintTo(msg.sender);
     }
+
+    function baseTokenURI() public pure returns (string memory) {
+        return "https://s3-us-west-2.amazonaws.com/udacity-blockchain/capstone/";
+    }
+
+    /********************************************************************************************/
+    /*                                     PRIVATE FUNCTIONS                                    */
+    /********************************************************************************************/
 
     function _verifySolution(
         uint256[2] memory a,

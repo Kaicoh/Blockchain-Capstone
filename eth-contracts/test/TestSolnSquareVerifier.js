@@ -26,7 +26,7 @@ contract('SolnSquareVerifier', (accounts) => {
         });
 
         it('assign new token to msg.sender', async () => {
-            const tokenId = 0; // first tokenId is 0
+            const tokenId = 1; // first tokenId is 0
             const owner = await instance.ownerOf.call(tokenId);
             assert.equal(owner, accounts[1]);
         });
